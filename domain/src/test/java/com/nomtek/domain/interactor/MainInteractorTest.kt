@@ -15,7 +15,7 @@ import kotlin.test.assertEquals
 
 class MainInteractorTest {
 
-    lateinit var target: MainInteractor
+    private lateinit var target: MainInteractor
 
     @Mock
     lateinit var mainRepository: MainRepository
@@ -23,7 +23,7 @@ class MainInteractorTest {
     @Mock
     lateinit var mapper: PostApiModelToViewModelMapper
 
-    var mainTestSubscriber = TestSubscriber<List<PostViewModel>>()
+    private var mainTestSubscriber = TestSubscriber<List<PostViewModel>>()
 
     @Before
     fun setUp() {

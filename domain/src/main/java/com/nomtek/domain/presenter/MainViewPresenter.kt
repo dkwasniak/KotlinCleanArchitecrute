@@ -3,7 +3,6 @@ package com.nomtek.domain.presenter
 import com.nomtek.domain.di.SchedulersProvider
 import com.nomtek.domain.interactor.MainInteractor
 import com.nomtek.domain.view.MainView
-import rx.Observable
 import rx.lang.kotlin.subscribeBy
 import javax.inject.Inject
 
@@ -15,7 +14,7 @@ class MainViewPresenter @Inject constructor(
 
     fun getPosts() {
         mainInteractor.getPosts()
-            .applySchadulers(schedulersProvider)
+            .applySchedulers(schedulersProvider)
             .subscribeBy(
                 onNext = {
                     view?.loadData(it)
@@ -24,14 +23,5 @@ class MainViewPresenter @Inject constructor(
                     view?.showError(it)
                 }
             )
-    }
-
-    fun <T : Any> Observable<T>.applySchadulers(schedulersProvider: SchedulersProvider?): Observable<T> {
-        return if (schedulersProvider == null) {
-            this
-        } else {
-            this.subscribeOn(schedulersProvider.computationSchaduler())
-                .observeOn(schedulersProvider.mainThreadSchaduler())
-        }
     }
 }

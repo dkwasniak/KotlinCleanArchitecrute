@@ -8,7 +8,7 @@ import kotlin.test.assertEquals
 
 class PostApiModelToViewModelMapperTest {
 
-    lateinit var target: PostApiModelToViewModelMapper
+    private lateinit var target: PostApiModelToViewModelMapper
 
     @Before
     fun setUp() {

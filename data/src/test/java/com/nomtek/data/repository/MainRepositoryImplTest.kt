@@ -2,6 +2,7 @@ package com.nomtek.data.repository
 
 import com.nhaarman.mockito_kotlin.verify
 import com.nomtek.data.api.MainApiService
+import com.nomtek.data.createSuccessResponse
 import com.nomtek.domain.api.model.PostApiModel
 import com.nomtek.domain.repository.MainRepository
 import okhttp3.MediaType
@@ -20,7 +21,7 @@ import kotlin.test.assertEquals
 
 class MainRepositoryImplTest {
 
-    lateinit var target: MainRepository
+    private lateinit var target: MainRepository
 
     @Mock
     lateinit var mainApiService: MainApiService
@@ -66,25 +67,4 @@ class MainRepositoryImplTest {
     }
 
 
-}
-
-fun <T> createSuccessResponse(code: Int, response: T):
-        Response<T> {
-    return Response.success(response, createRawResponseForCode(code))
-}
-
-fun <T> createErrorResponse(code: Int): Response<T> {
-    return Response.error(code, ResponseBody.create(MediaType.parse(""), "Error"))
-}
-
-fun createRawResponseForCode(code: Int): okhttp3.Response {
-    return okhttp3.Response.Builder()
-        .code(code)
-        .message("")
-        .protocol(Protocol.HTTP_1_1)
-        .request(
-            Request.Builder()
-                .url("http://example.com")
-                .build())
-        .build()
 }

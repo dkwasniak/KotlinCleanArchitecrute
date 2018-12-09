@@ -6,7 +6,7 @@ import com.nomtek.domain.api.model.PostApiModel
 import com.nomtek.domain.repository.MainRepository
 import rx.Observable
 
-class MainRepositoryImpl(val mainApiService: MainApiService) : MainRepository {
+class MainRepositoryImpl(private val mainApiService: MainApiService) : MainRepository {
 
     override fun getPosts(): Observable<List<PostApiModel>> {
         return mainApiService.getPosts().flatMap {

@@ -1,6 +1,8 @@
 package com.nomtek.domain.presenter
 
+import com.nomtek.domain.di.SchedulersProvider
 import com.nomtek.domain.view.BaseView
+import rx.Observable
 
 open class BasePresenter<T : BaseView> {
 
@@ -12,5 +14,14 @@ open class BasePresenter<T : BaseView> {
 
     open fun detach() {
         this.view = null
+    }
+}
+
+fun <T : Any> Observable<T>.applySchedulers(schedulersProvider: SchedulersProvider?): Observable<T> {
+    return if (schedulersProvider == null) {
+        this
+    } else {
+        this.subscribeOn(schedulersProvider.computationSchaduler())
+            .observeOn(schedulersProvider.mainThreadSchaduler())
     }
 }
